@@ -15,8 +15,8 @@ class Program(models.Model):
 class AccStatus(models.Model):
     institution = models.ForeignKey(Institution,blank=True, null=True,on_delete=models.CASCADE)
     program = models.ForeignKey(Program, on_delete=models.CASCADE)
-    Accrediting_Body = models.CharField(max_length=50,blank=True, null=True)
-    Accreditation_Status = models.CharField(max_length=50,blank=True, null=True)
+    Accrediting_Body = models.CharField(max_length=50,choices=(('المركز الوطني','المركز الوطني'),),blank=True, null=True)
+    Accreditation_Status = models.CharField(max_length=50,choices=(('معتمد','معتمد'),('غير معتمد','غير معتمد'),('قيد الاعتماد','قيد الاعتماد')),blank=True, null=True)
     Accreditation_Start_Date = models.DateField(auto_now=False, auto_now_add=False,blank=True, null=True)
     Accreditation_End_Date = models.DateField(auto_now=False, auto_now_add=False,blank=True, null=True)
     Compliance_Level = models.CharField(choices=(('High','High'),('Medium','Medium'),('Low','Low')),max_length=50,blank=True, null=True)
