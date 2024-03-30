@@ -1,0 +1,24 @@
+html,body{
+    font-family: "Changa", sans-serif;
+}
+.sidebar .sidebar-brand-wrapper .sidebar-brand {
+    text-align: center;
+}
+.sidebar .nav .nav-item.profile .profile-desc {
+    display: inline;
+    text-align: center;
+}
+.navbar {
+    right: 244px;
+}
+@media(max-width:992px){
+    .navbar{
+        right: 0px;
+    }
+    .nav-list{
+        display: none;
+    }
+}
+.sidebar .nav .nav-item {
+    padding-right: 0px;
+}
