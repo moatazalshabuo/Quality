@@ -1,0 +1,83 @@
+{% extends 'layouts/base.html' %}
+
+{% block title %}
+  create AccStatus
+{% endblock %}
+
+{% block content %}
+  <div class="row">
+    <div class="col-md-8 m-auto">
+      
+      <div class="card">
+        <div class="card-body">
+          <h4 class="card-title">Edit AccStatus</h4>
+          <p class="card-description">
+            {% if messages %}
+            <ul class="messages alert">
+                {% for message in messages %}
+                <li {% if message.tags %} class="text-success" {% endif %}>{{ message }}</li>
+                {% endfor %}
+            </ul>
+          {% endif %}
+          </p>
+          <form method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            {% if user.is_superuser %}
+            <div class="form-group">
+              <select name="account" class="form-control" required="" id="id_account">
+                <option>select</option>
+                {% for val in account %}
+                  <option value="{{ val.id }}"  {% if val.id == acc.account.id %} selected {% endif %}>{{ val.company_name }}</option>
+                {% endfor %}
+              </select>
+            </div>
+            {% else %}
+            <input type="hidden" name="account" value="{{ user.id }}">
+            {% endif %}
+            {% for field in form %}
+              <div class="form-group">
+                <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+                {{ field }}
+                {% if field.errors %}
+                  <div class="invalid-feedback">
+                    {% for error in field.errors %}
+                      {{ error }}
+                    {% endfor %}
+                  </div>
+                {% endif %}
+              </div>
+            {% endfor %}
+            <button type="submit" class="btn btn-success w-100 p-2">save</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock %}
+
+{% block script %}
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+  <script>
+    $('#id_department').html('')
+    
+    function change(id){
+      axios.get("/app/get-department/" + id).then((response) => {
+
+        data = []
+        $('#id_department').empty()
+        response.data.data.map((res) => {
+          data.push({ text: res.name, id: res.id })
+        })
+        $('#id_department').append('<option value=""> choise </option>')
+        $.each(data, function (index, item) {
+          $('#id_department').append('<option value="' + item.id + '">' + item.text + '</option>')
+        })
+      })
+    }
+    $('#account').change(function () {
+      change($(this).val())
+    })
+
+    change({{ acc.department.account.id }})
+  </script>
+{% endblock %}

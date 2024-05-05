@@ -24,6 +24,7 @@
     <!-- endinject -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <!-- Layout styles -->
+    <link href="https://fonts.googleapis.com/css2?family=Changa:wght@200..800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="{% static 'assets/css/style.css' %}" />
     <link rel="stylesheet" href="{% static 'assets/css/change_style.css' %}" />
     <!-- End layout styles -->
@@ -35,6 +36,14 @@
       .form-control {
         color: #fff !important;
       }
+      .sidebar .nav {
+        
+        margin-right: -40px;
+    }
+    .navbar {
+      right: 244px;
+      left: 0;
+  }
     </style>
   </head>
   <body>
@@ -49,24 +58,110 @@
         <ul class="nav">
           <li class="nav-item profile">
             <div class="profile-desc" style="text-align: center;">
-              <h3 style="text-align: center;">جامعة سببها</h3>
+              <h3 style="text-align: center;">جامعة سبها</h3>
             </div>
           </li>
-          <li class="nav-item nav-category">
-            <span class="nav-link">pages</span>
-          </li>
-          <li class="nav-item menu-items">
+         
+          {% comment %} <li class="nav-item menu-items">
             <a class="nav-link" href="{% url 'Accstaus.create' %}">
-              <span class="menu-icon"><i class="mdi mdi-speedometer"></i></span>
+              <span class="menu-icon mx-2"><i class="mdi mdi-speedometer"></i></span>
               <span class="menu-title">Accstaus create</span>
             </a>
           </li>
           <li class="nav-item menu-items">
             <a class="nav-link" href="{% url 'index.accStatus' %}">
-              <span class="menu-icon"><i class="mdi mdi-speedometer"></i></span>
+              <span class="menu-icon mx-2"><i class="mdi mdi-speedometer"></i></span>
               <span class="menu-title">Accstaus list</span>
             </a>
+          </li> {% endcomment %}
+          {% if user.is_superuser %}
+          <li class="nav-item nav-category">
+            <span class="nav-link">الصفحات</span>
           </li>
+          <li class="nav-item menu-items">
+            <a class="nav-link" href="#">
+              <span class="menu-icon mx-2"><i class="mdi mdi-plus"></i></span>
+              <span class="menu-title">حالة الاعتماد </span>
+            </a>
+          </li>
+          <li class="nav-item menu-items">
+            <a class="nav-link" href="#">
+              <span class="menu-icon mx-2"><i class="mdi mdi-plus"></i></span>
+              <span class="menu-title">عدد ورش العمل <br> والمحاضرات </span>
+            </a>
+          </li>
+          <li class="nav-item menu-items">
+            <a class="nav-link" href="#">
+              <span class="menu-icon mx-2"><i class="mdi mdi-plus"></i></span>
+              <span class="menu-title">تقييم البرامج </span>
+            </a>
+          </li>
+          <li class="nav-item menu-items">
+            <a class="nav-link" href="#">
+              <span class="menu-icon mx-2"><i class="mdi mdi-plus"></i></span>
+              <span class="menu-title">اداء الطلاب </span>
+            </a>
+          </li>
+          <li class="nav-item menu-items">
+            <a class="nav-link" href="#">
+              <span class="menu-icon mx-2"><i class="mdi mdi-plus"></i></span>
+              <span class="menu-title">تعليقات الطلاب <br> ورضاهم </span>
+            </a>
+          </li>
+          <li class="nav-item menu-items">
+            <a class="nav-link" href="#">
+              <span class="menu-icon mx-2"><i class="mdi mdi-plus"></i></span>
+              <span class="menu-title">المرافق والموارد </span>
+            </a>
+          </li>
+          <li class="nav-item nav-category">
+            <span class="nav-link">الصفحات</span>
+          </li>
+            <li class="nav-item menu-items">
+              <a class="nav-link" href="{% url 'create_account' %}">
+                <span class="menu-icon mx-2"><i class="mdi mdi-plus"></i></span>
+                <span class="menu-title">اضافة مؤسسة </span>
+              </a>
+            </li>
+            <li class="nav-item menu-items">
+              <a class="nav-link" href="{% url 'accounts' %}">
+                <span class="menu-icon mx-2"><i class="mdi mdi-home-modern"></i></span>
+                <span class="menu-title">ادارة المؤسسات </span>
+              </a>
+            </li>
+            <li class="nav-item menu-items">
+              <a class="nav-link" href="{% url 'Acc.create' %}">
+                <span class="menu-icon mx-2"><i class="mdi mdi-security"></i></span>
+                <span class="menu-title">تعبئة نموذج اعتماد </span>
+              </a>
+            </li>
+            <li class="nav-item menu-items">
+              <a class="nav-link" href="{% url 'acc.index' %}">
+                <span class="menu-icon mx-2"><i class="mdi mdi-security"></i></span>
+                <span class="menu-title"> نماذج اعتماد لمؤسسات </span>
+              </a>
+            </li>
+          {% else %}
+          {% comment %} <li class="nav-item menu-items">
+            <a class="nav-link" href="{% url 'department' user.id %}">
+              <span class="menu-icon mx-2"><i class="mdi mdi-plus"></i></span>
+              <span class="menu-title">اقسام المؤسسة
+                 </span>
+            </a>
+          </li> {% endcomment %}
+          <li class="nav-item menu-items">
+            <a class="nav-link" href="{% url 'Acc.create' %}">
+              <span class="menu-icon mx-2"><i class="mdi mdi-security"></i></span>
+              <span class="menu-title">اضافة نموذج اعتماد </span>
+            </a>
+          </li>
+          <li class="nav-item menu-items">
+            <a class="nav-link" href="{% url 'acc.index' %}">
+              <span class="menu-icon mx-2"><i class="mdi mdi-security"></i></span>
+              <span class="menu-title"> نماذج االاعتماد  </span>
+            </a>
+          </li>
+          {% endif %}
           {% comment %} <li class="nav-item menu-items">
             <a class="nav-link" data-toggle="collapse" href="#ui-basic" aria-expanded="false" aria-controls="ui-basic">
               <span class="menu-icon"><i class="mdi mdi-laptop"></i></span>
@@ -171,18 +266,18 @@
             </ul>
             <ul class="navbar-nav navbar-nav-right">
             
-              <li class="nav-item dropdown d-none">
+              <li class="nav-item dropdown ">
                 <a class="nav-link" id="profileDropdown" href="#" data-toggle="dropdown">
                   <div class="navbar-profile">
-                    <img class="img-xs rounded-circle" src="assets/images/faces/face15.jpg" alt="" />
-                    <p class="mb-0 d-none d-sm-block navbar-profile-name">Henry Klein</p>
+                    <i class="fa fa-user mx-3"></i>
+                    <p class="mb-0 d-none d-sm-block navbar-profile-name">{{ user.get_username }}</p>
                     <i class="mdi mdi-menu-down d-none d-sm-block"></i>
                   </div>
                 </a>
                 <div class="dropdown-menu dropdown-menu-right navbar-dropdown preview-list" aria-labelledby="profileDropdown">
                   <h6 class="p-3 mb-0">Profile</h6>
                   <div class="dropdown-divider"></div>
-                  <a class="dropdown-item preview-item">
+                  {% comment %} <a class="dropdown-+ preview-item">
                     <div class="preview-thumbnail">
                       <div class="preview-icon bg-dark rounded-circle">
                         <i class="mdi mdi-settings text-success"></i>
@@ -191,9 +286,9 @@
                     <div class="preview-item-content">
                       <p class="preview-subject mb-1">Settings</p>
                     </div>
-                  </a>
+                  </a> {% endcomment %}
                   <div class="dropdown-divider"></div>
-                  <a class="dropdown-item preview-item">
+                  <a class="dropdown-item preview-item" href="{% url 'logout' %}">
                     <div class="preview-thumbnail">
                       <div class="preview-icon bg-dark rounded-circle">
                         <i class="mdi mdi-logout text-danger"></i>

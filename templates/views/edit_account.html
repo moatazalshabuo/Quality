@@ -1,0 +1,47 @@
+{% extends 'layouts/base.html' %}
+{% block title %}
+  تعديل
+{% endblock %}
+{% block content %}
+  <div class="row">
+    <div class="col-md-8 m-auto">
+      <div class="card">
+        <div class="card-body" dir="rtl">
+          <h4 class="card-title">تعديل بيانات مؤسسة</h4>
+          <p class="card-description"></p>
+          <form method="POST">
+            {% csrf_token %}
+            {% for field in form %}
+              <div class="form-group">
+                <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+                {{ field }}
+              
+                {% if field.errors %}
+                  <div class="text-danger">
+                    {% for error in field.errors %}
+                      {{ error }}
+                    {% endfor %}
+                  </div>
+                {% endif %}
+              </div>
+            {% endfor %}
+            <button type="submit" class="btn btn-success w-100 p-2">تعديل</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock %}
+{% comment %} <form action="?type=one" method="POST" class="row add-device" enctype="multipart/form-data">
+    <input type="hidden" name="type" value="one">
+    {% csrf_token %}
+
+    <p class="text-danger">The Service Tag You must enter only letters without using symbols</p>
+    {{ form.as_div }}
+    <section class="col-12 mt-4">
+      {{ formfile }}
+    </section>
+    <p class="text-center">
+      <button type="submit" class="btn btn-primary mt-4">Save</button>
+    </p>
+  </form> {% endcomment %}

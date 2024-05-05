@@ -78,12 +78,16 @@ WSGI_APPLICATION = 'Main.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'Quntity',
-        'HOST': 'localhost',
-        'USER': 'root',
-        'PASSWORD': '4'
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
     }
+    # 'default': {
+    #     'ENGINE': 'django.db.backends.mysql',
+    #     'NAME': 'Quntity',
+    #     'HOST': 'localhost',
+    #     'USER': 'root',
+    #     'PASSWORD': '4'
+    # }
 }
 
 
@@ -117,6 +121,9 @@ USE_I18N = True
 
 USE_TZ = True
 
+
+AUTH_USER_MODEL = 'accuont.User'
+LOGIN_URL = 'login'
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.0/howto/static-files/

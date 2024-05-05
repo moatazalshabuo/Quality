@@ -1,5 +1,7 @@
 {% extends 'layouts/base.html' %}
 
 {% block content %}
-  <h1>Hello world</h1>
+  {% if not user.is_superuser %}
+  <a class="nav-link btn btn-success create-new-button py-4 d-inline-block" href="{% url 'Acc.create' %}">تعبئة نموذج الاعتماد</a>
+  {% endif %}
 {% endblock %}

@@ -1,0 +1,31 @@
+{% extends 'layouts/base.html' %}
+{% block title %}
+  المؤسسات
+{% endblock %}
+{% block content %}
+  <div class="table-responsive">
+    <table class="table table-bordered text-right ">
+      <thead>
+        <tr>
+          <th>اسم المؤسسة</th>
+          <th>اسم المستخدم</th>
+          <th>البريد الالكتروني</th>
+          <th>Control</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for val in users %}
+          <tr>
+            <td><a href="{% url 'department' val.id %}">{{ val.company_name }}</a></td>
+            <td>{{ val.username }}</td>
+            <td>{{ val.email }}</td>
+            <td>
+                <a class="btn btn-sm btn-warning" href="{% url 'edit_account' val.id %}"><i class="fa fa-edit"></i></a>
+                <a class="btn btn-sm btn-danger" href="{% url 'delete.account' val.id %}"><i class="fa fa-trash"></i></a>
+            </td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+{% endblock %}

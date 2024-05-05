@@ -1,0 +1,58 @@
+{% extends 'layouts/base.html' %}
+{% block title %}
+  المؤسسات
+{% endblock %}
+{% block content %}
+  <div class="row">
+    <div class="col-md-4">
+      <div class="card">
+        <div class="card-body" dir="rtl">
+          <h4 class="card-title">اضافة قسم</h4>
+          <p class="card-description"></p>
+          <form method="POST">
+            {% csrf_token %}
+            <div class="form-group">
+                <label for="id_name">اسم القسم</label>
+                <input type="text" name="name" maxlength="50" class="form-control" required="" id="id_name">
+                <input type="hidden" name="account" value="{{ account.id }}">
+              </div>
+            <button type="submit" class="btn btn-success w-100 p-2">save</button>
+          </form>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-8">
+        {% if messages %}
+        <ul class="messages alert">
+            {% for message in messages %}
+            <li {% if message.tags %} class="text-success" {% endif %}>{{ message }}</li>
+            {% endfor %}
+        </ul>
+        {% endif %}
+      <div class="table-responsive">
+        <table class="table table-bordered text-right">
+          <thead>
+            <tr>
+            <th>اسم القسم</th>
+              <th>اسم المؤسسة</th>
+
+              <th>Control</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for val in account.depatment_set.all %}
+              <tr>
+                <td>{{ val.name }}</td>
+                <td>{{ val.account.company_name }}</td>
+                <td>
+                  {% comment %} <a class="btn btn-sm btn-warning" href="?id={{ val.id }}"><i class="fa fa-edit"></i></a> {% endcomment %}
+                  <a class="btn btn-sm btn-danger" href="{% url 'delete.department' val.id %}"><i class="fa fa-trash"></i></a>
+                </td>
+              </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+{% endblock %}
