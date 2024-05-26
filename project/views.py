@@ -51,7 +51,7 @@ def create_Acc(request):
     return render(request,'views/admin/create_AccStatus.html',{'form':form,'account':account,'quality_standards':quality_standards})
 import datetime
 def create_college_activities(request,id):
-    years= range(1900,datetime.datetime.now().year + 1)
+    years= range(datetime.datetime.now().year-2,datetime.datetime.now().year)
     acc = AccStatusMain.objects.get(pk=id)
     
     if request.method == 'POST':

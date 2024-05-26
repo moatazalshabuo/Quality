@@ -88,6 +88,14 @@ DATABASES = {
     #     'USER': 'root',
     #     'PASSWORD': '4'
     # }
+    # 'default': {
+    #     'ENGINE': 'django.db.backends.mysql',
+    #     'NAME': 'desertte_gold_store',
+    #     'HOST': 'localhost',
+    #     'USER': 'desertte_desertt',
+    #     'PASSWORD': 'V+d:50uDok5AL7'
+
+    # }
 }
 
 

@@ -29,6 +29,7 @@ class ManagerUSer(UserManager):
         
 
 class User(AbstractUser):
+    type_enterprise = models.CharField(max_length=50,choices=(('علوم طبية','علوم طبية'),('علوم تطبيقية','علوم تطبيقية'),('علوم انسانية','علوم انسانية')),blank=True, null=True)
     company_name = models.CharField(max_length=50)
     point = models.IntegerField(default=0,null=True,blank=True)
     

@@ -8,6 +8,7 @@
       <thead>
         <tr>
           <th>اسم المؤسسة</th>
+          <th>نوع المؤسسة</th>
           <th>اسم المستخدم</th>
           <th>البريد الالكتروني</th>
           <th>Control</th>
@@ -17,6 +18,7 @@
         {% for val in users %}
           <tr>
             <td><a href="{% url 'department' val.id %}">{{ val.company_name }}</a></td>
+            <td>{{ val.type_enterprise }}</td>
             <td>{{ val.username }}</td>
             <td>{{ val.email }}</td>
             <td>

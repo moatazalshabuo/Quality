@@ -20,7 +20,7 @@ class AccStatus(models.Model):
     institution = models.ForeignKey(Institution,verbose_name='اسم المؤسسة',blank=True, null=True,on_delete=models.CASCADE)
     program = models.ForeignKey(Program,verbose_name='اسم القسم', on_delete=models.CASCADE)
     Accrediting_Body = models.CharField(verbose_name='نوع التقديم',max_length=50,choices=(('محلي','محلي'),('دولي','دولي')),blank=True, null=True)
-    Accreditation_Status = models.CharField(verbose_name='حالة الاعتماد',max_length=50,choices=(('معتمد','معتمد'),('غير معتمد','غير معتمد'),('قيد الاعتماد','قيد الاعتماد')),blank=True, null=True)
+    Accreditation_Status = models.CharField(verbose_name='حالة الاعتماد',max_length=50,choices=(('معتمد','معتمد'),('غير معتمد','غير معتمد'),('متقدمة الاعتماد','متقدمة الاعتماد'),('قيد الاعتماد','قيد الاعتماد')),blank=True, null=True)
     Accreditation_Start_Date = models.DateField(verbose_name='تاريخ بداية الاعتماد',auto_now=False, auto_now_add=False,blank=True, null=True)
     Accreditation_End_Date = models.DateField(verbose_name='تاريخ نهاية الاعتماد',auto_now=False, auto_now_add=False,blank=True, null=True)
     Compliance_Level = models.CharField(verbose_name='مستوى الامتثال',choices=(('High','High'),('Medium','Medium'),('Low','Low')),max_length=50,blank=True, null=True)

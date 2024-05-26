@@ -12,7 +12,7 @@
           <th>حالة الاعتماد</th>
           <th>الانشطة</th>
           <th>created at</th>
-          <th>contorl</th>
+          {% comment %} <th>contorl</th> {% endcomment %}
         </tr>
       </thead>
       <tbody>
@@ -23,9 +23,9 @@
             <td>{{ val.Accreditation_Status }}</td>
             <td><a href="{% url 'create_college_activities' val.id %}">انشطة المؤسسة</a></td>
             <td>{{ val.created_at }}</td>
-            <td>
+            {% comment %} <td>
               <a href="{% url 'edit.acc' val.id %}" class="btn btn-outline-warning"><i class="fa fa-edit"></i></a>
-            </td>
+            </td> {% endcomment %}
           </tr>
         {% endfor %}
       </tbody>

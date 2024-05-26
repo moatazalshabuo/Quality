@@ -3,7 +3,7 @@ from .models import *
 class CreateAccount(forms.ModelForm):
     class Meta:
         model = User
-        fields = ['company_name','email','username','password',]
+        fields = ['company_name','type_enterprise','email','username','password',]
         
     def __init__(self,*args, **kwargs):
         super(CreateAccount, self).__init__(*args, **kwargs)
@@ -14,11 +14,12 @@ class CreateAccount(forms.ModelForm):
         self.fields['email'].label = 'البريد الالكتروني'
         self.fields['username'].label = 'اسم المستخدم'
         self.fields['company_name'].label = 'اسم المؤسسة'
+        self.fields['type_enterprise'].label = 'نوع المؤسسة'
         
 class editAccount(forms.ModelForm):
     class Meta:
         model = User
-        fields = ['company_name','email','username',]
+        fields = ['company_name','email','username','type_enterprise']
         
     def __init__(self,*args, **kwargs):
         super(editAccount, self).__init__(*args, **kwargs)
@@ -28,6 +29,7 @@ class editAccount(forms.ModelForm):
         self.fields['email'].label = 'البريد الالكتروني'
         self.fields['username'].label = 'اسم المستخدم'
         self.fields['company_name'].label = 'اسم المؤسسة'
+        self.fields['type_enterprise'].label = 'نوع المؤسسة'
         
 class createDepartments(forms.ModelForm):
     class Meta:
