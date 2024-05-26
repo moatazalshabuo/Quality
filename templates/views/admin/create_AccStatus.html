@@ -3,14 +3,22 @@
 {% block title %}
   create AccStatus
 {% endblock %}
+{% block style %}
+<style>
+  .form-group div div{
+    display: inline !important;
+  }
+  /* The h1's container */
 
+</style>
+{% endblock style %}
 {% block content %}
   <div class="row">
     <div class="col-md-8 m-auto">
       
       <div class="card">
         <div class="card-body">
-          <h4 class="card-title">Create AccStatus</h4>
+          <h4 class="card-title">نموذج الاعتماد</h4>
           <p class="card-description">
             {% if messages %}
             <ul class="messages alert">
@@ -58,6 +66,20 @@
                 {% endif %}
               </div>
             {% endfor %}
+            <hr>
+            <div class="form-group">
+              <label>معايير الجودة</label>
+            
+            <div id="show-result" class="row">
+              {% for val in quality_standards %}
+              <div class="col-4">
+                <label>{{ val.name }}</label>
+                <input type="hidden" value="{{ val.id }}" class="form-control" name="quality_standards[]" >
+                <input type="number" max="100" min="0" class="form-control" name="ratio[]" required>
+              </div>
+              {% endfor %}
+            </div>
+          </div>
             <button type="submit" class="btn btn-success w-100 p-2">save</button>
           </form>
         </div>

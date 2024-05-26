@@ -1,0 +1,50 @@
+{% extends 'layouts/base.html' %}
+
+{% block title %}
+تعديل بيانات المعايير 
+{% endblock %}
+
+{% block content %}
+  <div class="row">
+    <div class="col-md-8 m-auto">
+      
+      <div class="card">
+        <div class="card-body">
+          <h4 class="card-title">تعديل بيانات المعايير </h4>
+          <p class="card-description">
+            {% if messages %}
+            <ul class="messages alert">
+                {% for message in messages %}
+                <li {% if message.tags %} class="text-success" {% endif %}>{{ message }}</li>
+                {% endfor %}
+            </ul>
+          {% endif %}
+          </p>
+          <form method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+           
+            {% for field in form %}
+              <div class="form-group">
+                <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+                {{ field }}
+                {% if field.errors %}
+                  <div class="invalid-feedback">
+                    {% for error in field.errors %}
+                      {{ error }}
+                    {% endfor %}
+                  </div>
+                {% endif %}
+              </div>
+            {% endfor %}
+            <button type="submit" class="btn btn-success w-100 p-2">حفظ</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock %}
+
+{% block script %}
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
+{% endblock %}

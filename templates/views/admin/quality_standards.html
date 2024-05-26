@@ -1,0 +1,47 @@
+{% extends 'layouts/base.html' %}
+{% block title %}
+  Acc Status
+{% endblock %}
+
+{% block content %}
+<div class="card">
+  <div class="card-header">
+    <a class="btn btn-outline-primary" href="{% url 'quality_standard.create' %}">معييار جديد</a>
+  </div>
+  <p class="card-description">
+    {% if messages %}
+    <ul class="messages alert">
+        {% for message in messages %}
+        <li {% if message.tags %} class="text-success" {% endif %}>{{ message }}</li>
+        {% endfor %}
+    </ul>
+  {% endif %}
+  </p>
+  <div class="card-body">
+    <div class="table-responsive">
+      <table class="table table-bordered">
+        <thead>
+          <tr>
+            <th>الاسم</th>
+            <th>الوصف</th>
+            <th>contorl</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for val in Quality_standards %}
+            <tr>
+              <td>{{ val.name }}</td>
+              <td>{{ val.descripe }}</td>
+              <td>
+                <a href="{% url 'quality_standard.delete' val.id %}" class="btn btn-outline-danger"><i class="fa fa-trash"></i></a>
+                <a href="{% url 'quality_standard.edit' val.id %}" class="btn btn-outline-warning"><i class="fa fa-edit"></i></a>
+              </td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+  
+{% endblock %}

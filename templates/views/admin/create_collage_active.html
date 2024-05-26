@@ -1,0 +1,101 @@
+{% extends 'layouts/base.html' %}
+
+{% block title %}
+  انشطة المؤسسة
+{% endblock %}
+
+{% block content %}
+  <div class="row">
+    <div class="col-md-6">
+      
+      <div class="card">
+        <div class="card-body">
+          <h4 class="card-title"> انشطة الكلية في مجال الجودة</h4>
+          <p class="card-description">
+            {% if messages %}
+            <ul class="messages alert">
+                {% for message in messages %}
+                <li {% if message.tags %} class="text-success" {% endif %}>{{ message }}</li>
+                {% endfor %}
+            </ul>
+          {% endif %}
+          </p>
+          <form method="POST" action="">
+            {% csrf_token %}
+        
+            <div class="form-group">
+              <label>النوع</label><br>
+              <label>ورش <input type="radio" name="type" value="ورش"/></label>
+              <label>محاضرات <input type="radio" name="type" value="محاضرات"/></label>
+            </div>
+            <div class="form-group">
+              <label>العام</label>
+              <select name="year" class="form-control" required>
+                
+                {% for val in years %}
+                  <option value="{{ val }}">{{ val }}</option>
+                {% endfor %}
+                  
+              </select>
+            </div>
+            <div class="form-group">
+              <label>الفصل</label><br>
+              <label>خريف <input type="radio" name="seasson" value="خريف"/></label>
+              <label>ربيع <input type="radio" name="seasson" value="ربيع"/></label>
+            </div>
+            <div class="form-group">
+              <label>االعنوان</label>
+              <input type="text" class="form-control" required name="name">
+            </div>
+            <button type="submit" class="btn btn-success w-100 p-2">حفظ</button>
+          </form>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="card">
+        <div class="card-header">
+          <p class="card-title">
+            {{ acc.account.company_name }}
+          </p>
+        </div>
+        <div class="card-body">
+          <div class="table-responsive">
+            <table class="table table-bordered">
+              <thead>
+                <tr>
+                  <th>العنوان</th>
+                  <th>النوع</th>
+                  <th>العام</th>
+                  <th>الفصل</th>
+                  <th>control</th>
+                </tr>
+              </thead>
+              <tbody>
+                
+                {% for val in college_active %}
+                <tr>
+                  <td>{{ val.name }}</td>
+                  <td>{{ val.type_activity }}</td>
+                  <td>{{ val.year }}</td>
+                  <td>{{ val.seasson }}</td>
+                  <td>
+                    <a class="btn btn-danger" href="{% url 'delete_college_activities' val.id %}">
+                      <i class="fa fa-trash"></i>
+                    </a>
+                  </td>
+                </tr>
+                {% endfor %}
+        
+              </tbody>
+            </table>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock %}
+
+{% block script %}
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
+{% endblock %}

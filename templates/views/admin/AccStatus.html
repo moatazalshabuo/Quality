@@ -7,16 +7,10 @@
     <table class="table table-bordered">
       <thead>
         <tr>
-          <th>Institution Name</th>
-          <th>Accrediting Body</th>
-          <th>Accreditation Status</th>
-          <th>Accreditation Start Date</th>
-          <th>Accreditation End Date</th>
-          <th>Compliance Level</th>
-          <th>Accreditation Criteria</th>
-          <th>Self-Assessment Reports</th>
-          <th>Site Visit Reports</th>
-          <th>Supporting Documentation</th>
+          <th>اسم المؤسسة</th>
+          <th>نوع التقديم</th>
+          <th>حالة الاعتماد</th>
+          <th>الانشطة</th>
           <th>created at</th>
           <th>contorl</th>
         </tr>
@@ -27,37 +21,7 @@
             <td>{{ val.account.company_name }}</td>
             <td>{{ val.Accrediting_Body }}</td>
             <td>{{ val.Accreditation_Status }}</td>
-            <td>{{ val.Accreditation_Start_Date }}</td>
-            <td>{{ val.Accreditation_End_Date }}</td>
-            <td>{{ val.Compliance_Level }}</td>
-            <td>{{ val.Accreditation_Criteria }}</td>
-            {% comment %} <td>
-              <a href="{{ val.Progress_Towards_Accreditation.url }}" class="btn btn-outline-success btn-sm">
-                <i class="fas fa-file-pdf "></i>
-              </a>
-            </td> {% endcomment %}
-            
-            <td>
-              {% if val.Self_Assessment_Reports %}
-                <a href="{{ val.Self_Assessment_Reports.url }}" class="btn btn-outline-success btn-sm">
-                  <i class="fas fa-file-pdf"></i>
-                </a>
-              {% endif %}
-            </td>
-            <td>
-              {% if val.Site_Visit_Reports %}
-                <a href="{{ val.Site_Visit_Reports.url }}" class="btn btn-outline-success btn-sm">
-                  <i class="fas fa-file-pdf"></i>
-              </a>
-              {% endif %}
-            </td>
-            <td>
-              {% if val.Site_Visit_Reports %}
-              <a href="{{ val.Supporting_Documentation.url }}" class="btn btn-outline-success btn-sm">
-                  <i class="fas fa-file-pdf"></i>
-              </a>
-            {% endif %}
-            </td>
+            <td><a href="{% url 'create_college_activities' val.id %}">انشطة المؤسسة</a></td>
             <td>{{ val.created_at }}</td>
             <td>
               <a href="{% url 'edit.acc' val.id %}" class="btn btn-outline-warning"><i class="fa fa-edit"></i></a>

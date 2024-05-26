@@ -45,6 +45,9 @@
       left: 0;
   }
     </style>
+    {% block style %}
+    
+    {% endblock style %}
   </head>
   <body>
     <!-- container-scroller -->
@@ -141,6 +144,10 @@
                 <span class="menu-title"> نماذج اعتماد لمؤسسات </span>
               </a>
             </li>
+            <li class="nav-item menu-items">
+              
+              <a href="{% url 'quality_standard.index' %}"class="nav-link"><span class="menu-icon mx-2"><i class="mdi mdi-security"></i></span> ادارة معايير الجودة</a>
+          </li>
           {% else %}
           {% comment %} <li class="nav-item menu-items">
             <a class="nav-link" href="{% url 'department' user.id %}">
@@ -338,7 +345,7 @@
     <script src="{% static 'assets/js/dashboard.js' %}"></script>
     <!-- End custom js for this page -->
     {% block script %}
-
+    
     {% endblock %}
   </body>
 </html>
