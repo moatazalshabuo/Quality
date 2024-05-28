@@ -131,3 +131,6 @@ def quality_standard_edit(request,id):
             messages.success(request,'تم الحفظ بنجاح ')
             return redirect('quality_standard.index')
     return render(request,'views/admin/quality_standards_edit.html',{'form':form,})
+
+def Workshops_lectures(request):
+    return render(request,'views/charts/Workshops_&_lectures.html')

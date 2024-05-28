@@ -16,5 +16,6 @@ urlpatterns = [
     path('quality_standard/<int:id>',quality_standard_delete,name='quality_standard.delete'),
     path('quality_standard/<int:id>/edit',quality_standard_edit,name='quality_standard.edit'),
     path('create_college_activities/<int:id>',create_college_activities,name='create_college_activities'),
-    path('delete_college_activities/<int:id>',delete_college_active,name='delete_college_activities'),    
+    path('delete_college_activities/<int:id>',delete_college_active,name='delete_college_activities'),
+    path('Workshops-lectures',Workshops_lectures,name='Workshops.lectures')
 ]
