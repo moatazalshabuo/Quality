@@ -35,7 +35,7 @@ class AccStatus(models.Model):
 class AccStatusMain(models.Model):
     account = models.ForeignKey(User,verbose_name='اسم القسم', on_delete=models.CASCADE)
     Accrediting_Body = models.CharField(verbose_name='نوع التقديم',max_length=50,choices=(('محلي','محلي'),('دولي','دولي')),blank=True, null=True)
-    Accreditation_Status = models.CharField(verbose_name='حالة الاعتماد',max_length=50,choices=(('معتمد','معتمد'),('غير معتمد','غير معتمد'),('قيد الاعتماد','قيد الاعتماد')),blank=True, null=True)
+    Accreditation_Status = models.CharField(verbose_name='حالة الاعتماد',max_length=50,choices=(('معتمد','معتمد'),('غير معتمد','غير معتمد'),('متقدمة للاعتماد','متقدمة للاعتماد'),('غير متقدمة للاعتماد','غير متقدمة للاعتماد')),blank=True, null=True)
     # Accreditation_Start_Date = models.DateField(verbose_name='تاريخ بداية الاعتماد',auto_now=False, auto_now_add=False,blank=True, null=True)
     # Accreditation_End_Date = models.DateField(verbose_name='تاريخ نهاية الاعتماد',auto_now=False, auto_now_add=False,blank=True, null=True)
     # Compliance_Level = models.CharField(verbose_name='مستوى الامتثال',choices=(('High','High'),('Medium','Medium'),('Low','Low')),max_length=50,blank=True, null=True)
