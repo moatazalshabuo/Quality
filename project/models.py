@@ -33,7 +33,7 @@ class AccStatus(models.Model):
     
 
 class AccStatusMain(models.Model):
-    account = models.ForeignKey(User,verbose_name='اسم القسم', on_delete=models.CASCADE)
+    account = models.ForeignKey(User,verbose_name='اسم القسم',related_name='acc_main', on_delete=models.CASCADE)
     Accrediting_Body = models.CharField(verbose_name='نوع التقديم',max_length=50,choices=(('محلي','محلي'),('دولي','دولي')),blank=True, null=True)
     Accreditation_Status = models.CharField(verbose_name='حالة الاعتماد',max_length=50,choices=(('معتمد','معتمد'),('غير معتمد','غير معتمد'),('متقدمة للاعتماد','متقدمة للاعتماد'),('غير متقدمة للاعتماد','غير متقدمة للاعتماد')),blank=True, null=True)
     # Accreditation_Start_Date = models.DateField(verbose_name='تاريخ بداية الاعتماد',auto_now=False, auto_now_add=False,blank=True, null=True)
@@ -47,12 +47,12 @@ class AccStatusMain(models.Model):
     created_at = models.DateTimeField(auto_now=False, auto_now_add=True,blank=True, null=True)
     
 class StandardAcc(models.Model):
-    acc_status_main = models.ForeignKey(AccStatusMain, on_delete=models.CASCADE)
+    acc_status_main = models.ForeignKey(AccStatusMain,related_name='stan_acc', on_delete=models.CASCADE)
     quality_standards = models.ForeignKey(Quality_standards,on_delete=models.CASCADE)
     ratio = models.IntegerField(default=0)
     
 class College_activities(models.Model):
-    acc_status_main = models.ForeignKey(AccStatusMain, on_delete=models.CASCADE)
+    acc_status_main = models.ForeignKey(AccStatusMain,related_name='col_active', on_delete=models.CASCADE)
     name = models.CharField(max_length=50)
     year = models.IntegerField()
     type_activity = models.CharField(max_length=45,blank=True, null=True) 

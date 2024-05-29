@@ -133,4 +133,19 @@ def quality_standard_edit(request,id):
     return render(request,'views/admin/quality_standards_edit.html',{'form':form,})
 
 def Workshops_lectures(request):
-    return render(request,'views/charts/Workshops_&_lectures.html')
+    account = User.objects.filter(is_superuser=False)
+    return render(request,'views/charts/Workshops_&_lectures.html',{'account':account})
+
+def accreditation_status(request):
+    
+    return render(request,'views/charts/Accreditation.html')
+
+
+def Quality_Standards(request):
+    account = User.objects.filter(is_superuser=False)
+    # depe = Quality_standards.objects.all()
+    depe = []
+    if request.method == 'POST':
+        
+        depe = AccStatusMain.objects.filter(account=User.objects.get(pk=request.POST['id'])).last().stan_acc.all()
+    return render(request,'views/charts/gusis_chart.html',{'account':account,'depe':depe})

@@ -8,9 +8,16 @@
   <div class="row">
     <div class="col-lg-12 grid-margin stretch-card">
       <div class="card">
+        <div class="card-header">
+          <div class="btn-group" dir="ltr">
+            <button class="btn btn-outline-primary status" data-val="علوم طبية">علوم طبية</button>
+            <button class="btn btn-outline-primary status" data-val="علوم تطبيقية">علوم تطبيقية</button>
+            <button class="btn btn-outline-primary status" data-val="علوم انسانية">علوم انسانية</button>
+          </div>
+        </div>
         <div class="card-body">
           <h4 class="card-title">Bar chart</h4>
-          <canvas id="barChart" style="height:400px"></canvas>
+          <canvas id="pieChart" style="height:400px"></canvas>
         </div>
       </div>
     </div>
@@ -18,6 +25,58 @@
 {% endblock %}
 
 {% block script %}
-<script src="{% static 'assets/js/chart.js' %}"></script>
-
+{% comment %} <script src="{% static 'assets/js/chart.js' %}"></script> {% endcomment %}
+<script>
+  $(function(){
+    $('.status').click(function(){
+      $('.status').removeClass('btn-primary')
+      $(this).addClass('btn-primary')
+      var val = $(this).data('val')
+      $.ajax({
+        url:'/app/api/AccreditationPie',
+        data:{
+          'val':val
+        },
+        success:function(res){
+          var pieChartCanvas = $("#pieChart").get(0).getContext("2d");
+          var pieChart = new Chart(pieChartCanvas, {
+            type: 'pie',
+            data: {
+              datasets: [{
+                data: Object.values(res),
+                backgroundColor: [
+                  'rgba(255, 99, 132, 0.5)',
+                  'rgba(54, 162, 235, 0.5)',
+                  'rgba(255, 206, 86, 0.5)',
+                  'rgba(75, 192, 192, 0.5)',
+                  'rgba(153, 102, 255, 0.5)',
+                  'rgba(255, 159, 64, 0.5)'
+                ],
+                borderColor: [
+                  'rgba(255,99,132,1)',
+                  'rgba(54, 162, 235, 1)',
+                  'rgba(255, 206, 86, 1)',
+                  'rgba(75, 192, 192, 1)',
+                  'rgba(153, 102, 255, 1)',
+                  'rgba(255, 159, 64, 1)'
+                ],
+              }],
+          
+              // These labels appear in the legend and in the tooltips when hovering different arcs
+              labels: Object.keys(res)
+            },
+            options:  {
+              responsive: true,
+              animation: {
+                animateScale: true,
+                animateRotate: true
+              }
+            }
+          });
+      
+    }
+  })
+    })
+  })
+ </script>
 {% endblock %}

@@ -82,7 +82,7 @@
             <span class="nav-link">الصفحات</span>
           </li>
           <li class="nav-item menu-items">
-            <a class="nav-link" href="#">
+            <a class="nav-link" href="{% url 'accreditation.status' %}">
               <span class="menu-icon mx-2"><i class="mdi mdi-plus"></i></span>
               <span class="menu-title">حالة الاعتماد </span>
             </a>
@@ -94,12 +94,12 @@
             </a>
           </li>
           <li class="nav-item menu-items">
-            <a class="nav-link" href="#">
+            <a class="nav-link" href="{% url 'quality.standards' %}">
               <span class="menu-icon mx-2"><i class="mdi mdi-plus"></i></span>
-              <span class="menu-title">تقييم البرامج </span>
+              <span class="menu-title">معايير المؤسسات </span>
             </a>
           </li>
-          <li class="nav-item menu-items">
+          {% comment %} <li class="nav-item menu-items">
             <a class="nav-link" href="#">
               <span class="menu-icon mx-2"><i class="mdi mdi-plus"></i></span>
               <span class="menu-title">اداء الطلاب </span>
@@ -110,13 +110,13 @@
               <span class="menu-icon mx-2"><i class="mdi mdi-plus"></i></span>
               <span class="menu-title">تعليقات الطلاب <br> ورضاهم </span>
             </a>
-          </li>
-          <li class="nav-item menu-items">
+          </li> {% endcomment %}
+          {% comment %} <li class="nav-item menu-items">
             <a class="nav-link" href="#">
               <span class="menu-icon mx-2"><i class="mdi mdi-plus"></i></span>
               <span class="menu-title">المرافق والموارد </span>
             </a>
-          </li>
+          </li> {% endcomment %}
           <li class="nav-item nav-category">
             <span class="nav-link">الصفحات</span>
           </li>
