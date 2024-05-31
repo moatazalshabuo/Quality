@@ -1,7 +1,19 @@
 {% extends 'layouts/base.html' %}
 
+{% block style %}
+
+<style>
+
+</style>
+{% endblock style %}
 {% block content %}
   {% if not user.is_superuser %}
   <a class="nav-link btn btn-success create-new-button py-4 d-inline-block" href="{% url 'Acc.create' %}">تعبئة نموذج الاعتماد</a>
+  {% else %}
+
   {% endif %}
 {% endblock %}
+
+{% block script %}
+
+{% endblock script %}

@@ -8838,9 +8838,9 @@ pre {
   font-weight: 400;
   line-height: 1;
   color: #495057;
-  background-color: #2A3038;
+  background-color: #f1f3f7;
   background-clip: padding-box;
-  border: 1px solid #2c2e33;
+  border: 1px solid #ffffff;
   border-radius: 2px;
   transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out; }
   @media (prefers-reduced-motion: reduce) {
@@ -8866,7 +8866,7 @@ pre {
   .tt-query:focus,
   .tt-hint:focus {
     color: #495057;
-    background-color: #fff;
+    background-color: #ffffff;
     border-color: #80bdff;
     outline: 0;
     box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25); }

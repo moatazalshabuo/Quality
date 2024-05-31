@@ -5,7 +5,10 @@ from .serializers import AccStatusMainSerializer
 import pandas as pd
 def getAccreditationData(request):
     id = request.GET['id']
-    account = AccStatusMain.objects.filter(account=User.objects.get(pk=id))
+    if id == 'all':
+        account = AccStatusMain.objects.filter()  
+    else:      
+        account = AccStatusMain.objects.filter(account=User.objects.get(pk=id))
     data1 = {
         'year':[],
         'session':[],
@@ -17,7 +20,7 @@ def getAccreditationData(request):
         'data':[]
     }
     for val in account:
-        for value in val.col_active.all():
+        for value in val.col_active.order_by('year').all():
             if value.type_activity == 'محاضرة':
                 data1['year'].append(f'{value.year} - {value.seasson}')
                 # data1['session'].append(value.seasson)
@@ -32,12 +35,16 @@ def getAccreditationData(request):
     # print(df.groupby(['year','session'], as_index=False)['data'].count())
     lable = data1['year'] + data2['year']
     lable = list(set(lable))
-    return JsonResponse({'lable':lable,'data1':df.groupby(['year'],as_index=False)['data'].count().to_dict(),'data2':df2.groupby(['year'],as_index=False)['data'].count().to_dict()})
+    return JsonResponse({'id':id,'lable':lable,'data1':df.groupby(['year'],as_index=False)['data'].count().to_dict(),'data2':df2.groupby(['year'],as_index=False)['data'].count().to_dict()})
 
 
 def getAccreditationPie(request):
     val = request.GET['val']
     data = {}
-    for i in ['معتمد','غير معتمد','متقدمة للاعتماد','غير متقدمة للاعتماد']:
-        data[i] = AccStatusMain.objects.filter(account__type_enterprise=val,Accreditation_Status=i).count()
+    if val == 'all':
+         for i in ['معتمد','غير معتمد','متقدمة للاعتماد','غير متقدمة للاعتماد']:
+            data[i] = AccStatusMain.objects.filter(Accreditation_Status=i).count()
+    else: 
+        for i in ['معتمد','غير معتمد','متقدمة للاعتماد','غير متقدمة للاعتماد']:
+            data[i] = AccStatusMain.objects.filter(account__type_enterprise=val,Accreditation_Status=i).count()
     return JsonResponse(data)

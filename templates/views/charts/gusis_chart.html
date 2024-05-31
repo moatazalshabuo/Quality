@@ -7,18 +7,20 @@
 {% block content %}
   <div class="row">
     <div class="col-lg-12 grid-margin stretch-card">
-      <div class="card">
+      <div class="card" style="background-color: #fff;">
         <div class="card-header">
-          <form action="" method="post">
+          <h4 class="card-title text-dark">معايير المؤسسة</h4>
+          <form action="" method="post" id='myform'>
             {% csrf_token %}
-            <select class="form-control" id='collage' name="id" required>
+            <select class="form-control w-25 " style="    background-color: #fff;
+            color: #000 !important;" id='collage' name="id" required>
               <option value=""> select </option>
               {% for val in account %}
                 <option value="{{ val.id }}">{{ val.company_name }}</option>
               {% endfor %}
                 
             </select>
-            <input type="submit" value="بحت" class="btn btn-primary">
+            
           </form>
           
         </div>
@@ -26,8 +28,8 @@
           {% comment %} <h4 class="card-title">Bar chart</h4> {% endcomment %}
           <div class="row">
             {% for val in depe %}
-            <div class="col-4">
-              <p>{{ val.quality_standards.name }}</p>
+            <div class="col-4 p-5">
+              <p class="m-2" style="color:black">{{ val.quality_standards.name }}</p>
               <canvas class="canvas" data-value='{{ val.ratio }}'></canvas>
             </div>
             {% endfor %}
@@ -48,7 +50,9 @@
 
     
    //   console.log( index + ": " + $( this ).text() );
-   
+   $('#collage').change(function(){
+    $('#myform').submit()
+   })
     setTimeout(function(){
       $('.canvas').each(function( index ) {
         var e = $(this)
@@ -62,7 +66,7 @@
               minValue: 0,
               maxValue:100,
               data:[100],
-              backgroundColor: ['green'],
+              backgroundColor: ['rgba(54, 162, 235, 1)'],
             }]
           },
           options: {
