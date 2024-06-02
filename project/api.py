@@ -35,6 +35,7 @@ def getAccreditationData(request):
     # print(df.groupby(['year','session'], as_index=False)['data'].count())
     lable = data1['year'] + data2['year']
     lable = list(set(lable))
+    print(lable)
     return JsonResponse({'id':id,'lable':lable,'data1':df.groupby(['year'],as_index=False)['data'].count().to_dict(),'data2':df2.groupby(['year'],as_index=False)['data'].count().to_dict()})
 
 

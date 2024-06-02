@@ -20,6 +20,111 @@
     <link rel="stylesheet" href="{% static 'assets/css/style.css' %}">
     <!-- End layout styles -->
     <link rel="shortcut icon" href="{% static 'assets/images/favicon.png' %}" />
+    <style>
+      @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,100..700;1,100..700&display=swap');
+
+.card{
+    width: auto;
+    height: auto;
+    background-color: white;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    border-radius: 20px;
+}
+
+.card h2{
+  margin-bottom: 10px;
+}
+
+.card a.fp{
+  width: 100%;
+  display: flex;
+  color: #5881D0;
+}
+
+.login_register{
+      /* display: flex; */
+      width: 100%;
+      border: 1px solid rgba(221, 221, 221, 1);
+      border-radius: 15px;
+      margin: 20px 0;
+      text-align: center;
+}
+
+.login_register a{
+  font-size: 1em;
+  padding: 10px 55px;
+  border: none;
+  width: 50%;
+}
+
+.login_register a.login{
+  border-radius: 15px;
+  background: linear-gradient(90deg, #003A74, #006AD5);
+  color: white;
+}
+
+.login_register a.register{
+  border-radius: 15px;
+  background-color: transparent;
+  color: black;
+}
+
+.form{
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.form input{
+  padding: 10px;
+  border-radius: 5px;
+  border: 1px solid #DDDDDD;
+  color: #A0A6A3;
+  font-family: "Roboto Mono", sans-serif;
+  box-shadow: 1px 5px 9px rgba(211, 211, 211, .7);
+}
+
+.form input.email{
+  margin-bottom: 15px;
+}
+
+.form input.pass{
+  margin-bottom: 5px;
+}
+
+.login_btn{
+  font-size: 20px;
+  color: white;
+  border-radius: 15px;
+  border: none;
+  background-color: #003A74;
+  width: 100%;
+  padding: 10px;
+  margin-top: 15px;
+  margin-bottom: 15px;
+  background: linear-gradient(-90deg, #003A74, #006AD5);
+  box-shadow: 1px 5px 9px rgba(211, 211, 211, .9);
+}
+
+.footer_card{
+  display: flex;
+  width: 100%;
+  justify-content: center;
+}
+
+.footer_card p{
+  margin-right: 10px;
+}
+
+.footer_card a{
+  color: #5881D0;
+}
+    </style>
   </head>
   <body>
     <div class="container-scroller">
@@ -27,44 +132,42 @@
         <div class="row w-100 m-0">
           <div class="content-wrapper full-page-wrapper auth login-bg"  style="background-image: url({% static 'assets/images/bg.jpg' %});">
             
-            <div class="col-md-4 ">
-            <div class="card text-right">
-              <div class="card-body px-5 py-5">
-                {% if messages %}
-                <ul class="messages alert">
-                    {% for message in messages %}
-                    <li {% if message.tags %} class="text-danger"{% endif %}>{{ message }}</li>
-                    {% endfor %}
-                </ul>
-                {% endif %}
-                <h3 class="card-title text-center my-3">تسجيل الدخول</h3>
-                <form method="post" action="">
-                    {% csrf_token %}
-                  <div class="form-group">
-                    <label>اسم المستخدم *</label>
-                    <input type="text" class="form-control p_input" required name="username">
-                  </div>
-                  <div class="form-group">
-                    <label>كلمة المرور *</label>
-                    <input type="password" class="form-control p_input" required name="password">
-                  </div>
-                  <div class="form-group d-flex align-items-center justify-content-between">
-                    <div class="form-check">
-                      <label class="form-check-label">
-                        {% comment %} <input type="checkbox" class="form-check-input">  </label> {% endcomment %}
-                    </div>
-                    {% comment %} <a href="#" class="forgot-pass">Forgot password</a> {% endcomment %}
-                  </div>
-                  <div class="text-center">
-                    <button type="submit" class="btn btn-primary btn-block enter-btn">تسجيل الدحول</button>
-                  </div>
-                 
-                </form>
-              </div>
-            </div>
+            <div class="col-md-4 mt-5">
+            
 
+            <div class="card py-5">
+              <h2 style="color: #003A74; text-align: center;">لوحة معلومات جامعة سبها</h2>
+      
+                  <!-- SE CONNECTER / S'INSCRIRE -->
+              <div class="login_register">
+                  <a href="
+      https://codepen.io/pen?template=gOEqMVq
+      " class="login" target="blank">تسجيل الدخول</a>
+                  
+              </div>
+      
+                  <!-- FORMULAIRE -->
+              <form class="form" action="" method="post">
+                {% csrf_token %}
+                <label>اسم المستخدم *</label>
+                  <input type="text" placeholder="اسم المستخدم" class="email" name="username" required>
+                  <label>كلمة المرور *</label>
+                  <input type="password" placeholder="كلمة المرور" class="pass" name="password" required>
+                  <button type="submit" class="login_btn">الدخول</button>
+              </form>
+      
+                  <!-- MOT DE PASSE OUBLIE ? -->
+              
+      
+                  <!-- BOUTTON LOGIN -->
+                  
+      
+                  <!-- PIED DE LA CARD -->
+             
             </div>
-            <div class="col-md-8"></div>
+            <div class="col-md-8">
+            </div>
+            </div>
           </div>
           <!-- content-wrapper ends -->
         </div>

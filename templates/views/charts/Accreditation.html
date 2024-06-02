@@ -30,6 +30,8 @@
   {% comment %} <script src="{% static 'assets/js/chart.js' %}"></script> {% endcomment %}
   <script>
     $(function () {
+      var pieChartCanvas = $('#pieChart').get(0).getContext('2d')
+      var pieChart;
       function getdata(val) {
         $.ajax({
           url: '/app/api/AccreditationPie',
@@ -37,14 +39,23 @@
             val: val
           },
           success: function (res) {
-            var pieChartCanvas = $('#pieChart').get(0).getContext('2d')
-            var pieChart = new Chart(pieChartCanvas, {
+            console.log(pieChart)
+            if (pieChart) {
+              
+        pieChart.destroy();
+        }
+            pieChart = new Chart(pieChartCanvas, {
               type: 'pie',
               data: {
                 datasets: [
                   {
                     data: Object.values(res),
-                    backgroundColor: ['rgba(255, 99, 132, 1)', 'rgba(54, 162, 235, 1)', 'rgba(255, 206, 86, 1)', 'rgba(75, 192, 192, 1)', 'rgba(153, 102, 255, 1)', 'rgba(255, 159, 64, 1)'],
+                    backgroundColor: ['rgba(255, 99, 132, 1)', 
+                    'rgba(54, 162, 235, 1)', 
+                    'rgba(255, 206, 86, 1)',
+                     'rgba(75, 192, 192, 1)',
+                      'rgba(153, 102, 255, 1)',
+                       'rgba(255, 159, 64, 1)'],
                     borderColor: ['rgba(255,99,132,1)', 'rgba(54, 162, 235, 1)', 'rgba(255, 206, 86, 1)', 'rgba(75, 192, 192, 1)', 'rgba(153, 102, 255, 1)', 'rgba(255, 159, 64, 1)']
                   }
                 ],
