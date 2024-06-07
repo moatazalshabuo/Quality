@@ -44,6 +44,7 @@ class AccStatusMain(models.Model):
     # Self_Assessment_Reports = models.FileField(verbose_name='تقرير التقييم الذاتي',upload_to='Self-Assessment/Reports', max_length=100,blank=True, null=True)
     # Site_Visit_Reports = models.FileField(verbose_name='تقرير زيادة الموقع',upload_to='Site/Visit/Reports', max_length=100,blank=True, null=True)
     # Supporting_Documentation = models.FileField(verbose_name='التوثيق الداعم',upload_to='Supporting/Documentation', max_length=100,blank=True, null=True)
+    year = models.IntegerField(blank=True, null=True)
     created_at = models.DateTimeField(auto_now=False, auto_now_add=True,blank=True, null=True)
     
 class StandardAcc(models.Model):

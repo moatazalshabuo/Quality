@@ -10,10 +10,302 @@
   {% if not user.is_superuser %}
   <a class="nav-link btn btn-success create-new-button py-4 d-inline-block" href="{% url 'Acc.create' %}">تعبئة نموذج الاعتماد</a>
   {% else %}
-
+  <div class="page-header">
+    <h3 class="page-title"> لوحة اداء الكلية </h3>
+   
+  </div>
+  <div class="row">
+    <div class="col-sm-4 grid-margin">
+      <div class="card">
+        <div class="card-body">
+          <h5>الكلية</h5>
+          <div class="row">
+            <div class="col-12 col-sm-12 col-xl-12 my-auto">
+              {% comment %} <div class="d-flex d-sm-block d-md-flex align-items-center">
+                <h2 class="mb-0">$32123</h2>
+                <p class="text-success ml-2 mb-0 font-weight-medium">+3.5%</p>
+              </div>
+              <h6 class="text-muted font-weight-normal">11.38% Since last month</h6> {% endcomment %}
+              <select class="form-control" id='account'>
+                <option>اختيار الكلية</option>
+                
+                {% for val in account %}
+                  <option value="{{ val.id }}">{{ val.company_name }}</option>
+                {% endfor %}
+                  
+              </select>
+            </div>
+            
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-sm-4 grid-margin">
+      <div class="card">
+        <div class="card-body">
+          <h5>العام</h5>
+          <div class="row">
+            <div class="col-12 col-sm-12 col-xl-12 my-auto">
+              {% comment %} <div class="d-flex d-sm-block d-md-flex align-items-center">
+                <h2 class="mb-0">$32123</h2>
+                <p class="text-success ml-2 mb-0 font-weight-medium">+3.5%</p>
+              </div>
+              <h6 class="text-muted font-weight-normal">11.38% Since last month</h6> {% endcomment %}
+              <select class="form-control">
+                <option>اختيار العام الدراسي</option>
+                <option value="2024">2024</option>
+              </select>
+            </div>
+            
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-sm-6 grid-margin">
+      <div class="card">
+        <div class="card-body">
+          <h5>عدد الطلاب</h5>
+          <div class="row">
+            <div class="col-8 col-sm-12 col-xl-8 my-auto">
+              <div class="d-flex d-sm-block d-md-flex align-items-center">
+                <h2 class="mb-0" id='staff'>0</h2>
+              </div>
+          
+            </div>
+            <div class="col-4 col-sm-12 col-xl-4 text-center text-xl-right">
+              <i class="icon-lg mdi mdi-school text-success ml-auto"></i>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-sm-6 grid-margin">
+      <div class="card">
+        <div class="card-body">
+          <h5>عدد الطلاب</h5>
+          <div class="row">
+            <div class="col-8 col-sm-12 col-xl-8 my-auto">
+              <div class="d-flex d-sm-block d-md-flex align-items-center">
+                <h2 class="mb-0" id='students'>0</h2>
+              </div>
+          
+            </div>
+            <div class="col-4 col-sm-12 col-xl-4 text-center text-xl-right">
+              <i class="icon-lg mdi mdi-school text-success ml-auto"></i>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-6 grid-margin stretch-card">
+      <div class="card">
+        <div class="card-body">
+          
+            <h4 class="card-title">الورش والمحاضرات</h4>
+            <canvas id="barChart" style="height:400px"></canvas>
+          </div>
+        
+      </div>
+    </div>
+    <div class="col-md-6 grid-margin stretch-card">
+      <div class="card">
+        <div class="card">
+          <div class="card-body">
+            <h4 class="card-title">حالة الاعتماد</h4>
+            <canvas id="pieChart" style="height:350px"></canvas>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+ 
+  <div class="row ">
+    <div class="col-12 grid-margin">
+      <div class="card">
+        <div class="card-body">
+          <h4 class="card-title">Order Status</h4>
+          <div class="row">
+            {% for val in depe %}
+            <div class="col-4 p-1">
+              <p>{{ val.name }}</p>
+              <div class="progress">
+                <div class="progress-bar" id='prog-{{val.id}}' role="progressbar" style="" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+              </div>
+            </div>
+            {% endfor %}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
   {% endif %}
 {% endblock %}
 
 {% block script %}
+  {% comment %} <script src="{% static 'assets/js/chart.js' %}"></script> {% endcomment %}
+  <script>
+    $(function () {
+      var pieChartCanvas = $('#pieChart').get(0).getContext('2d')
+      var pieChart;
+      function getdata(val) {
+        $.ajax({
+          url: '/app/api/AccreditationPieMain',
+          data: {
+            val: val
+          },
+          success: function (res) {
+            console.log(pieChart)
+            if (pieChart) {
+              
+        pieChart.destroy();
+        }
+            pieChart = new Chart(pieChartCanvas, {
+              type: 'pie',
+              data: {
+                datasets: [
+                  {
+                    data: Object.values(res),
+                    backgroundColor: [
+                                    'rgb(255, 206, 86)',
+                                    'rgb(75, 192, 192)',
+                                    'rgb(153, 102, 255)',
+                                    'rgb(255, 159, 64)'],
+                  }
+                ],
+    
+                // These labels appear in the legend and in the tooltips when hovering different arcs
+                labels: Object.keys(res)
+              },
+              options: {
+                responsive: true,
+                animation: {
+                  animateScale: true,
+                  animateRotate: true
+                },legend: {
+                  position: 'left',
+                },
+              }
+            })
+          }
+        })
+      }
+      getdata('all')
+   
 
-{% endblock script %}
+      function getdata2(val){
+        $.ajax({
+          url:'/app/api/Accreditation',
+          data:{
+            'id':val
+          },
+          success:function(res){
+            console.log(res['lable'])
+            if ($("#barChart").length) {
+              $('#collage').val(res['id'])
+              var barChartCanvas = $("#barChart").get(0).getContext("2d");
+              // This will get the first returned node in the jQuery collection.
+              var barChart = new Chart(barChartCanvas, {
+                type: 'bar',
+                data: {
+                  labels: res['lable'],
+                  datasets: [{
+                    label: 'محاضرة',
+                    data: Object.values(res['data1']['data']),
+                    backgroundColor: 
+                      'rgb(255, 206, 86)',
+                    borderWidth: 1,
+                    fill: false
+                  },{
+                    label: 'ورشة',
+                    data: Object.values(res['data2']['data']),
+                    backgroundColor: 
+                      
+                    'rgb(75, 192, 192)',
+                    
+                    borderWidth: 1,
+                    fill: false
+                  }]
+                },
+                options:  {
+                  scales: {
+                    yAxes: [{
+                      ticks: {
+                        beginAtZero: true
+                      },
+                      gridLines: {
+                        color: "rgba(204, 204, 204,0.1)"
+                      }
+                    }],
+                    xAxes: [{
+                      gridLines: {
+                        color: "rgba(204, 204, 204,0.1)"
+                      }
+                    }]
+                  },
+                  legend: {
+                    display: false
+                  },
+                  elements: {
+                    point: {
+                      radius: 0
+                    }
+                  }
+                }
+              });
+            }
+          }
+        }) 
+      }
+  
+      function getData3(val){
+        $.ajax({
+          url: '/app/api/quality_standard_api',
+          data: {
+            val: val
+          },
+          success: function (res) {
+          var data=res.data
+
+          for(i =0;i<data.length;i++){
+            $(`#prog-${data[i].quality_standards.id}`).css('width',`${data[i].ratio}%`)
+            $(`#prog-${data[i].quality_standards.id}`).text(`${data[i].ratio}%`)
+          }
+          }
+        })
+      }
+
+      function getData4(val){
+        $.ajax({
+          url: '/app/api/get_students_staff',
+          data: {
+            val: val
+          },
+          success: function (res) {
+            console.log(res)
+          var students = res.students
+          var staff = res.staff
+          $('#staff').text(staff)
+          $('#students').text(students)
+          $('#st_su').text((staff+students))
+          }
+        })
+      }
+      getData4('all')
+
+      getdata2('all')
+      $('#account').change(function(){
+       getdata2($(this).val())
+       getdata($(this).val())
+       getData3($(this).val())
+       getData4($(this).val())
+      })
+
+      
+    })
+  </script>
+{% endblock %}

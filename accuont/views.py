@@ -5,10 +5,12 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from .models import *
 from .forms import *
+from project.models import *
 # Create your views here.
 @login_required
 def index(request):
-    return render(request,'home.html')
+    
+    return render(request,'home.html',{'depe':Quality_standards.objects.all(),'account':User.objects.filter(is_superuser = False)})
 
 def login_view(request):
     if request.method == 'POST':

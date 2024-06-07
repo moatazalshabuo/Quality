@@ -19,7 +19,7 @@ class CreateAccount(forms.ModelForm):
 class editAccount(forms.ModelForm):
     class Meta:
         model = User
-        fields = ['company_name','email','username','type_enterprise']
+        fields = ['company_name','email','username','type_enterprise','staff','students']
         
     def __init__(self,*args, **kwargs):
         super(editAccount, self).__init__(*args, **kwargs)
@@ -30,6 +30,9 @@ class editAccount(forms.ModelForm):
         self.fields['username'].label = 'اسم المستخدم'
         self.fields['company_name'].label = 'اسم المؤسسة'
         self.fields['type_enterprise'].label = 'نوع المؤسسة'
+        self.fields['staff'].label = 'عدد اعضاء هيئة التدريس'
+        self.fields['students'].label = 'عدد الطلاب'
+
         
 class createDepartments(forms.ModelForm):
     class Meta:
