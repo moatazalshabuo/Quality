@@ -195,8 +195,8 @@
         })
       }
       getdata('all')
-   
-
+      var barChartCanvas = $("#barChart").get(0).getContext("2d");
+      var barChart;
       function getdata2(val){
         $.ajax({
           url:'/app/api/Accreditation',
@@ -204,12 +204,16 @@
             'id':val
           },
           success:function(res){
+            if (barChart) {
+              
+              barChart.destroy();
+              }
             console.log(res['lable'])
             if ($("#barChart").length) {
               $('#collage').val(res['id'])
-              var barChartCanvas = $("#barChart").get(0).getContext("2d");
+              
               // This will get the first returned node in the jQuery collection.
-              var barChart = new Chart(barChartCanvas, {
+              barChart = new Chart(barChartCanvas, {
                 type: 'bar',
                 data: {
                   labels: res['lable'],
