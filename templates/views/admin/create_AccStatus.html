@@ -55,8 +55,20 @@
             {% endif %}
             {% for field in form %}
               <div class="form-group">
+                
+                {% if field.label == 'Year' %}
+                <label>العام</label>
+                <select name="year" class="form-control" required>
+                
+                  {% for val in years %}
+                    <option value="{{ val }}">{{ val }}</option>
+                  {% endfor %}
+                    
+                </select>
+                {% else %}
                 <label for="{{ field.id_for_label }}">{{ field.label }}</label>
                 {{ field }}
+                {% endif %}
                 {% if field.errors %}
                   <div class="invalid-feedback">
                     {% for error in field.errors %}
@@ -67,6 +79,10 @@
               </div>
             {% endfor %}
             <hr>
+            <div class="form-group">
+              
+              
+            </div>
             <div >
               <label>نسبة انجاز الكلية لمعايير اعتماد المؤسسي</label>
             

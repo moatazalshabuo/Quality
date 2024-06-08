@@ -17,7 +17,8 @@ def create_AccStatus(request):
             for x,y in zip(request.POST.getlist('quality_standards'),request.POST.getlist('ratio')):
                 print(x,y)
             messages.success(request,'تم الحفظ بنجاح ')
-    return render(request,'views/create_AccStatus.html',{'form':form})
+    years= range(datetime.datetime.now().year-2,datetime.datetime.now().year)
+    return render(request,'views/create_AccStatus.html',{'form':form,'years':years})
 
 def getProgram(request,id):
     institution = Institution.objects.get(pk=id)
@@ -39,7 +40,7 @@ def create_Acc(request):
             accou = User.objects.get(pk=request.POST['account'])
             # acc_status.save()
             accs = AccStatusMain.objects.create(account=accou,Accreditation_Status=request.POST['Accreditation_Status'],
-                                                Accrediting_Body=request.POST['Accrediting_Body'])
+                                                Accrediting_Body=request.POST['Accrediting_Body'],year=request.POST['year'])
             
             for x,y in zip(request.POST.getlist('quality_standards[]'),request.POST.getlist('ratio[]')):
                 StandardAcc.objects.create(acc_status_main=accs,
@@ -48,7 +49,8 @@ def create_Acc(request):
             return redirect('create_college_activities',id=accs.id)
             form= CreateAccStatus()
             messages.success(request,'تم الحفظ بنجاح ')
-    return render(request,'views/admin/create_AccStatus.html',{'form':form,'account':account,'quality_standards':quality_standards})
+    years= range(datetime.datetime.now().year-2,datetime.datetime.now().year)
+    return render(request,'views/admin/create_AccStatus.html',{'form':form,'account':account,'quality_standards':quality_standards,'years':years})
 import datetime
 def create_college_activities(request,id):
     years= range(datetime.datetime.now().year-2,datetime.datetime.now().year)

@@ -10,6 +10,7 @@
           <th>اسم المؤسسة</th>
           <th>نوع التقديم</th>
           <th>حالة الاعتماد</th>
+          <th>العام الدراسي</th>
           <th>الانشطة</th>
           <th>created at</th>
           {% comment %} <th>contorl</th> {% endcomment %}
@@ -21,6 +22,7 @@
             <td>{{ val.account.company_name }}</td>
             <td>{{ val.Accrediting_Body }}</td>
             <td>{{ val.Accreditation_Status }}</td>
+            <td>{{ val.year }}</td>
             <td><a href="{% url 'create_college_activities' val.id %}">انشطة المؤسسة</a></td>
             <td>{{ val.created_at }}</td>
             {% comment %} <td>

@@ -19,7 +19,8 @@ class CreateAccStatus(forms.ModelForm):
         model = AccStatusMain
        
         fields = ("Accreditation_Status",
-                  "Accrediting_Body",  
+                  "Accrediting_Body",
+                  'year'  
                     )
         widgets = {
             'Accrediting_Body' : forms.RadioSelect(),
