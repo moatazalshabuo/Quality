@@ -146,8 +146,10 @@ def accreditation_status(request):
 def Quality_Standards(request):
     account = User.objects.filter(is_superuser=False)
     # depe = Quality_standards.objects.all()
-    depe = []
-    if request.method == 'POST':
-        
-        depe = AccStatusMain.objects.filter(account=User.objects.get(pk=request.POST['id'])).last().stan_acc.all()
+    if request.user.is_superuser:
+        depe = []
+        if request.method == 'POST':
+            depe = AccStatusMain.objects.filter(account=User.objects.get(pk=request.POST['id'])).last().stan_acc.all()
+    else:
+        depe = AccStatusMain.objects.filter(account=request.user).last().stan_acc.all()
     return render(request,'views/charts/gusis_chart.html',{'account':account,'depe':depe})

@@ -10,12 +10,14 @@
       <div class="card" style="background-color: #fff;">
         <div class="card-header">
           <h4 class="card-title text-dark">حالة الاعتماد</h4>
-          <div class="btn-group" dir="ltr">
-            <button class="btn btn-outline-primary btn-primary status" data-val="all">الكل</button>
-            <button class="btn btn-outline-primary status" data-val="علوم طبية">علوم طبية</button>
-            <button class="btn btn-outline-primary status" data-val="علوم تطبيقية">علوم تطبيقية</button>
-            <button class="btn btn-outline-primary status" data-val="علوم انسانية">علوم انسانية</button>
-          </div>
+          {% if user.is_superuser %}
+            <div class="btn-group" dir="ltr">
+              <button class="btn btn-outline-primary btn-primary status" data-val="all">الكل</button>
+              <button class="btn btn-outline-primary status" data-val="علوم طبية">علوم طبية</button>
+              <button class="btn btn-outline-primary status" data-val="علوم تطبيقية">علوم تطبيقية</button>
+              <button class="btn btn-outline-primary status" data-val="علوم انسانية">علوم انسانية</button>
+            </div>          
+          {% endif %}
         </div>
         <div class="card-body">
           <h4 class="card-title">Bar chart</h4>

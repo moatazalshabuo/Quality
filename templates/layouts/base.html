@@ -84,7 +84,7 @@
               <span class="menu-title">Accstaus list</span>
             </a>
           </li> {% endcomment %}
-          {% if user.is_superuser %}
+          
           <li class="nav-item nav-category">
             <span class="nav-link">الصفحات</span>
           </li>
@@ -124,6 +124,7 @@
               <span class="menu-title">المرافق والموارد </span>
             </a>
           </li> {% endcomment %}
+          {% if user.is_superuser %}
           <li class="nav-item nav-category">
             <span class="nav-link">الصفحات</span>
           </li>
@@ -172,10 +173,16 @@
           <li class="nav-item menu-items">
             <a class="nav-link" href="{% url 'acc.index' %}">
               <span class="menu-icon mx-2"><i class="mdi mdi-security"></i></span>
-              <span class="menu-title"> نماذج االاعتماد  </span>
+              <span class="menu-title"> نماذج الاعتماد  </span>
             </a>
           </li>
           {% endif %}
+          <li class="nav-item menu-items">
+            <a class="nav-link" href="https://docs.google.com/forms/d/e/1FAIpQLScXjwzYkWUgNkiVd5jLD_NvRw_YIG5zqTQYUPvJ5i2GjAs6jw/viewform?usp=sharing">
+              <span class="menu-icon mx-2"><i class="mdi mdi-security"></i></span>
+              <span class="menu-title"> التقييم  </span>
+            </a>
+          </li>
           {% comment %} <li class="nav-item menu-items">
             <a class="nav-link" data-toggle="collapse" href="#ui-basic" aria-expanded="false" aria-controls="ui-basic">
               <span class="menu-icon"><i class="mdi mdi-laptop"></i></span>

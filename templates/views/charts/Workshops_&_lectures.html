@@ -10,14 +10,16 @@
       <div class="card" style="background-color: #fff;">
         <div class="card-header">
           <h4 class="card-title text-dark">عدد ورش العمل والمحاضرات</h4>
-          <select class="form-control w-25" style="    background-color: #fff;
-          color: #000 !important;" id='collage'>
-            <option value="all"> الكل </option>
-            {% for val in account %}
-              <option value="{{ val.id }}">{{ val.company_name }}</option>
-            {% endfor %}
-              
-          </select>
+          {% if user.is_superuser %}
+            <select class="form-control w-25" style="    background-color: #fff;
+            color: #000 !important;" id='collage'>
+              <option value="all"> الكل </option>
+              {% for val in account %}
+                <option value="{{ val.id }}">{{ val.company_name }}</option>
+              {% endfor %}
+                
+            </select>
+          {% endif %}
         </div>
         <div class="card-body">
           <h4 class="card-title">Bar chart</h4>

@@ -7,7 +7,10 @@ from .serializers import *
 def getAccreditationData(request):
     id = request.GET['id']
     if id == 'all':
-        account = AccStatusMain.objects.filter()  
+        if request.user.is_superuser:
+            account = AccStatusMain.objects.filter()
+        else:
+            account = AccStatusMain.objects.filter(account=request.user)  
     else:      
         account = AccStatusMain.objects.filter(account=User.objects.get(pk=id))
     data1 = {
@@ -42,41 +45,57 @@ def getAccreditationData(request):
 
 def getAccreditationPie(request):
     val = request.GET['val']
-    data = {}
-    if val == 'all':
-         for i in ['معتمد','غير معتمد','متقدمة للاعتماد','غير متقدمة للاعتماد']:
-            data[i] = AccStatusMain.objects.filter(Accreditation_Status=i).count()
-    else: 
-        for i in ['معتمد','غير معتمد','متقدمة للاعتماد','غير متقدمة للاعتماد']:
-            data[i] = AccStatusMain.objects.filter(account__type_enterprise=val,Accreditation_Status=i).count()
+    data = {'معتمد':0,'غير معتمد':0,'متقدمة للاعتماد':0,'غير متقدمة للاعتماد':0}
+    if request.user.is_superuser:
+        if val == 'all':
+            for i in ['معتمد','غير معتمد','متقدمة للاعتماد','غير متقدمة للاعتماد']:
+                data[i] = AccStatusMain.objects.filter(Accreditation_Status=i).count()
+        else: 
+            for i in ['معتمد','غير معتمد','متقدمة للاعتماد','غير متقدمة للاعتماد']:
+                data[i] = AccStatusMain.objects.filter(account__type_enterprise=val,Accreditation_Status=i).count()
+    else:
+        assu = AccStatusMain.objects.filter(account=request.user).first()
+        data[assu.Accreditation_Status] = 1 
     return JsonResponse(data)
 
 def getAccreditationPieMain(request):
     val = request.GET['val']
-    data = {}
-    if val == 'all':
-         for i in ['معتمد','غير معتمد','متقدمة للاعتماد','غير متقدمة للاعتماد']:
-            data[i] = AccStatusMain.objects.filter(Accreditation_Status=i).count()
-    else: 
-        for i in ['معتمد','غير معتمد','متقدمة للاعتماد','غير متقدمة للاعتماد']:
-            data[i] = AccStatusMain.objects.filter(account_id=val,Accreditation_Status=i).count()
+    data = {'معتمد':0,'غير معتمد':0,'متقدمة للاعتماد':0,'غير متقدمة للاعتماد':0}
+    if request.user.is_superuser:
+        if val == 'all':
+            for i in ['معتمد','غير معتمد','متقدمة للاعتماد','غير متقدمة للاعتماد']:
+                data[i] = AccStatusMain.objects.filter(Accreditation_Status=i).count()
+        else: 
+            for i in ['معتمد','غير معتمد','متقدمة للاعتماد','غير متقدمة للاعتماد']:
+                data[i] = AccStatusMain.objects.filter(account_id=val,Accreditation_Status=i).count()
+    else:
+        assu = AccStatusMain.objects.filter(account=request.user).first()
+        print(assu)
+        data[assu.Accreditation_Status] = 1 
     return JsonResponse(data)
 
 def quality_standard_api(request):
-    val = request.GET['val']
-    depe = AccStatusMain.objects.filter(account=User.objects.get(pk=val)).last().stan_acc.all()
+    if request.user.is_superuser:
+        val = request.GET['val']
+        depe = AccStatusMain.objects.filter(account=User.objects.get(pk=val)).last().stan_acc.all()
+    else:
+        depe = AccStatusMain.objects.filter(account=request.user).last().stan_acc.all()        
     return JsonResponse({'data':StandardAccSerializer(depe,many=True).data})
 
 def get_students_staff(request):
-    val = request.GET['val']
-    students = 0
-    staff = 0
-    if val == 'all':
-        for val in User.objects.all():
-            students += val.students
-            staff += val.staff
+    if request.user.is_superuser:
+        val = request.GET['val']
+        students = 0
+        staff = 0
+        if val == 'all':
+            for val in User.objects.all():
+                students += val.students
+                staff += val.staff
+        else:
+            account = User.objects.get(pk=val)
+            staff = account.staff
+            students = account.students
     else:
-        account = User.objects.get(pk=val)
-        staff = account.staff
-        students = account.students
+        students = request.user.students
+        staff = request.user.staff
     return JsonResponse({'students':students,'staff':staff})

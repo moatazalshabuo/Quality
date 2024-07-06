@@ -10,6 +10,7 @@
       <div class="card" style="background-color: #fff;">
         <div class="card-header">
           <h4 class="card-title text-dark">معايير المؤسسة</h4>
+          {% if user.is_superuser %}
           <form action="" method="post" id='myform'>
             {% csrf_token %}
             <select class="form-control w-25 " style="    background-color: #fff;
@@ -20,9 +21,8 @@
               {% endfor %}
                 
             </select>
-            
           </form>
-          
+          {% endif %}
         </div>
         <div class="card-body">
           {% comment %} <h4 class="card-title">Bar chart</h4> {% endcomment %}
