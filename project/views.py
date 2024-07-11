@@ -153,3 +153,7 @@ def Quality_Standards(request):
     else:
         depe = AccStatusMain.objects.filter(account=request.user).last().stan_acc.all()
     return render(request,'views/charts/gusis_chart.html',{'account':account,'depe':depe})
+
+def Acc_pdf(request):
+    return render(request,'views/Acc.html')
+    

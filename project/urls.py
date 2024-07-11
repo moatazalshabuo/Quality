@@ -23,5 +23,6 @@ urlpatterns = [
     path('delete_college_activities/<int:id>',delete_college_active,name='delete_college_activities'),
     path('Workshops-lectures',Workshops_lectures,name='Workshops.lectures'),
     path('accreditation-status',accreditation_status,name='accreditation.status'),
-    path('quality-standards',Quality_Standards,name='quality.standards')
+    path('quality-standards',Quality_Standards,name='quality.standards'),
+    path('University_education/',Acc_pdf,name='Acc_pdf')
 ]
