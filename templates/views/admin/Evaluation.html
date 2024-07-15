@@ -1,0 +1,89 @@
+{% extends 'layouts/base.html' %}
+{% load static %}
+{% block style %}
+
+{% endblock %}
+
+{% block content %}
+  <div class="row">
+    <div class="col-lg-12 grid-margin stretch-card">
+      <div class="card" style="background-color: #fff;">
+        <div class="card-header">
+          <h4 class="card-title text-dark">التقييم </h4>
+          
+        </div>
+        <div class="card-body">
+          {% comment %} <h4 class="card-title">Bar chart</h4> {% endcomment %}
+          <div>
+          <h3>معيار 1</h3>
+          <canvas id="chart1" width="400" height="200"></canvas>
+        </div>
+        <div>
+            <h3>معيار 2</h3>
+            <canvas id="chart2" width="400" height="200"></canvas>
+        </div>
+        <div>
+            <h3>معيار 3</h3>
+            <canvas id="chart3" width="400" height="200"></canvas>
+        </div>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock %}
+
+{% block script %}
+<script src="{% static 'assets/js/chart.js' %}"></script>
+<script src="https://unpkg.com/chartjs-gauge@0.3.0/dist/chartjs-gauge.js"></script>
+
+<script>
+    var criteriaData = {{ criteria_data|safe }};
+    var labels = {{ labels | safe}};
+    var colors = [
+        'rgba(255, 99, 132, 0.2)',
+        'rgba(54, 162, 235, 0.2)',
+        'rgba(255, 206, 86, 0.2)',
+        'rgba(75, 192, 192, 0.2)',
+        'rgba(153, 102, 255, 0.2)'
+    ];
+    var borderColors = [
+        'rgba(255, 99, 132, 1)',
+        'rgba(54, 162, 235, 1)',
+        'rgba(255, 206, 86, 1)',
+        'rgba(75, 192, 192, 1)',
+        'rgba(153, 102, 255, 1)'
+    ];
+
+    degree = {1:'موافق بشدة',2:'موافق',3:'محايد',4:'غير موافق',5:'غير موافق بشده'}
+    function createChart(ctx, data, label,labels_d) {
+        var datasets = Object.keys(data).map((key, index) => {
+            return {
+                label: degree[key] + key,
+                data: data[key],
+                backgroundColor: colors[index],
+                borderColor: borderColors[index],
+                borderWidth: 1
+            };
+        });
+
+        new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: labels_d,
+                datasets: datasets
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+    }
+
+    createChart(document.getElementById('chart1').getContext('2d'), criteriaData.criteria1, 'معيار 1',labels.criteria1);
+    createChart(document.getElementById('chart2').getContext('2d'), criteriaData.criteria2, 'معيار 2',labels.criteria2);
+    createChart(document.getElementById('chart3').getContext('2d'), criteriaData.criteria3, 'معيار 3',labels.criteria3);
+</script>
+{% endblock %}

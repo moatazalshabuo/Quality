@@ -6,6 +6,7 @@ from django.contrib import messages
 from django.http import JsonResponse
 from accuont.models import User
 from accuont.serializer import DepartmentSerialzer
+import pandas as pd
 # Create your views here.
 
 def create_AccStatus(request):
@@ -157,3 +158,25 @@ def Quality_Standards(request):
 def Acc_pdf(request):
     return render(request,'views/Acc.html')
     
+def Evaluation(request):
+    df = pd.read_excel('static/data.xlsx')
+    def calculate_totals(df):
+        totals = {1: [], 2: [], 3: [], 4: [], 5: []}
+        for col in df.columns:
+            counts = df[col].value_counts().reindex([1, 2, 3, 4, 5], fill_value=0)
+            for k, v in counts.items():
+                totals[k].append(v)
+        return totals
+    
+    criteria_data = {
+        "criteria1": calculate_totals(df.iloc[:, 0:4]),
+        "criteria2": calculate_totals(df.iloc[:, 4:8]),
+        "criteria3": calculate_totals(df.iloc[:, 8:12]),
+    }
+    labels = {
+        "criteria1": df.columns[0:4].to_list(),
+        "criteria2": df.columns[4:8].to_list(),
+        "criteria3": df.columns[8:12].to_list(),
+    }
+    print(criteria_data)
+    return render(request,'views/admin/Evaluation.html',{'criteria_data':criteria_data,'labels':labels})

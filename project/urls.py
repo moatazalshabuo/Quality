@@ -24,5 +24,6 @@ urlpatterns = [
     path('Workshops-lectures',Workshops_lectures,name='Workshops.lectures'),
     path('accreditation-status',accreditation_status,name='accreditation.status'),
     path('quality-standards',Quality_Standards,name='quality.standards'),
-    path('University_education/',Acc_pdf,name='Acc_pdf')
+    path('University_education/',Acc_pdf,name='Acc_pdf'),
+    path('Evaluation',Evaluation,name='Evaluation')
 ]

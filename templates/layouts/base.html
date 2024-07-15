@@ -168,6 +168,12 @@
               
               <a href="{% url 'quality_standard.index' %}"class="nav-link"><span class="menu-icon mx-2"><i class="mdi mdi-security"></i></span> ادارة الاعتماد المؤسسي</a>
           </li>
+          <li class="nav-item menu-items">
+            <a class="nav-link" href="{% url 'Evaluation' %}">
+              <span class="menu-icon mx-2"><i class="mdi mdi-security"></i></span>
+              <span class="menu-title"> لوحة التقييم<span>
+            </a>
+          </li>
           {% else %}
           {% comment %} <li class="nav-item menu-items">
             <a class="nav-link" href="{% url 'department' user.id %}">
@@ -279,7 +285,7 @@
             <li class="nav-item menu-items">
               <a class="nav-link" href="">
                 <span class="menu-icon"><i class="mdi mdi-file-document-box"></i> </span>
-                <span class="menu-title m-2">0214593953 - اتصل بنا</span>
+                <span class="menu-title m-2">+218 92-5439239 - اتصل بنا</span>
               </a>
             </li> 
         </ul>
