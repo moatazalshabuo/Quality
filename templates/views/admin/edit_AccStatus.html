@@ -1,0 +1,138 @@
+{% extends 'layouts/base.html' %}
+
+{% block title %}
+  create AccStatus
+{% endblock %}
+{% block style %}
+<style>
+  .form-group div div{
+    display: inline !important;
+  }
+  /* The h1's container */
+
+</style>
+{% endblock style %}
+{% block content %}
+  <div class="row">
+    <div class="col-md-8 m-auto">
+      
+      <div class="card">
+        <div class="card-body">
+          <h4 class="card-title">نموذج الاعتماد</h4>
+          <p class="card-description">
+            {% if messages %}
+            <ul class="messages alert">
+                {% for message in messages %}
+                <li {% if message.tags %} class="text-success" {% endif %}>{{ message }}</li>
+                {% endfor %}
+            </ul>
+          {% endif %}
+          </p>
+          <form method="POST" enctype="multipart/form-data">
+            {% csrf_token %}
+            {% comment %} <div class="form-group">
+              <select id="account" class="form-control">
+                <option>select</option>
+                {% for val in account %}
+                  <option value="{{ val.id }}">{{ val.company_name }}</option>
+                {% endfor %}
+                  
+              </select>
+            </div> {% endcomment %}
+            {% comment %} {% if user.is_superuser %}
+            <div class="form-group">
+
+              <label for="id_account">اسم المؤسسة</label>
+                <select name="account" class="form-control" required="" id="id_account">
+                  <option value="" selected="">---------</option>
+                  {% for val in account %}
+                    <option value="{{ val.id }}">{{ val.company_name }}</option>
+                  {% endfor %}
+                </select>
+            </div>
+            {% else %}
+            <input type="hidden" name="account" value="{{ user.id }}">
+            {% endif %} {% endcomment %}
+            {% for field in form %}
+              <div class="form-group">
+                
+                {% if field.label == 'Year' %}
+                <label>العام</label>
+             
+                <select name="year" class="form-control" required>
+                
+                  {% for val in years %}
+                    <option value="{{ val }}" {% if val == field.value %}selected{% endif %}>{{ val }}</option>
+                  {% endfor %}
+                    
+                </select>
+                {% else %}
+                <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+                {{ field }}
+                {% endif %}
+                {% if field.errors %}
+                  <div class="invalid-feedback">
+                    {% for error in field.errors %}
+                      {{ error }}
+                    {% endfor %}
+                  </div>
+                {% endif %}
+              </div>
+            {% endfor %}
+            <hr>
+            <div class="form-group">
+              
+              
+            </div>
+            <div >
+              <label>نسبة انجاز الكلية لمعايير اعتماد المؤسسي</label>
+            
+            <div id="show-result" class="row mb-3">
+              {% for val in quality_standards %}
+              <div class="col-4">
+                <label>{{ val.quality_standards.name }}</label>
+                <input type="hidden" value="{{ val.quality_standards.id }}" class="form-control" name="quality_standards[]" >
+                {% comment %} <div class="input-group"> {% endcomment %}
+                  <div class="input-group">
+                    
+                  <input type="number" max="100" min="0" class="form-control" value="{{ val.ratio }}" name="ratio[]" required>
+                  <span class="input-group-text" id="basic-addon1">%</span>
+                  </div>
+                    
+                  
+                {% comment %} </div> {% endcomment %}
+                
+              </div>
+              {% endfor %}
+            </div>
+          </div>
+          
+            <button type="submit" class="btn btn-success w-100 p-2">save</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock %}
+
+{% block script %}
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+  <script>
+    $('#id_department').html('')
+    
+    $('#account').change(function () {
+      axios.get("/app/get-department/" + $(this).val()).then((response) => {
+
+        data = []
+        $('#id_department').empty()
+        response.data.data.map((res) => {
+          data.push({ text: res.name, id: res.id })
+        })
+    
+        $.each(data, function (index, item) {
+          $('#id_department').append('<option value="' + item.id + '">' + item.text + '</option>')
+        })
+      })
+    })
+  </script>
+{% endblock %}

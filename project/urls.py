@@ -25,5 +25,7 @@ urlpatterns = [
     path('accreditation-status',accreditation_status,name='accreditation.status'),
     path('quality-standards',Quality_Standards,name='quality.standards'),
     path('University_education/',Acc_pdf,name='Acc_pdf'),
-    path('Evaluation',Evaluation,name='Evaluation')
+    path('Evaluation',Evaluation,name='Evaluation'),
+    path('edit_Acc/<int:id>',edit_Acc,name='edit_Acc'),
+    path('delete_acc/<int:id>',delete_acc,name='delete_acc')
 ]

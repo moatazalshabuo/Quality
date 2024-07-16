@@ -52,6 +52,40 @@ def create_Acc(request):
             messages.success(request,'تم الحفظ بنجاح ')
     years= range(datetime.datetime.now().year-2,datetime.datetime.now().year)
     return render(request,'views/admin/create_AccStatus.html',{'form':form,'account':account,'quality_standards':quality_standards,'years':years})
+
+def edit_Acc(request,id):
+    acc = AccStatusMain.objects.get(pk=id)
+    form = CreateAccStatus(request.POST or None,request.FILES or None,instance=acc)
+    # account = User.objects.filter(is_superuser=0)
+    quality_standards = StandardAcc.objects.filter(acc_status_main=acc)
+    if request.method == "POST":
+        if form.is_valid():
+            # # acc_status = form.save(commit=False)
+            # accou = User.objects.get(pk=request.POST['account'])
+            # # acc_status.save()
+            acc.Accreditation_Status = request.POST['Accreditation_Status']
+            acc.Accrediting_Body = request.POST['Accrediting_Body']
+            acc.year = request.POST['year']
+            acc.save()
+            for x,y in zip(request.POST.getlist('quality_standards[]'),request.POST.getlist('ratio[]')):
+                st = StandardAcc.objects.filter(acc_status_main=acc,
+                                            quality_standards=Quality_standards.objects.get(pk=x),
+                                            ).first()
+                
+                st.ratio=y
+                st.save()
+            form= CreateAccStatus()
+            messages.success(request,'تم الحفظ بنجاح ')
+            return redirect('acc.index')
+    years= range(datetime.datetime.now().year-2,datetime.datetime.now().year)
+    return render(request,'views/admin/edit_AccStatus.html',{'form':form,'quality_standards':quality_standards,'years':years})
+
+def delete_acc(request,id):
+    acc = AccStatusMain.objects.get(pk=id)
+    acc.delete()
+    messages.success(request,'تم الحذف بنجاح ')
+    return redirect('acc.index')
+
 import datetime
 def create_college_activities(request,id):
     years= range(datetime.datetime.now().year-2,datetime.datetime.now().year)
